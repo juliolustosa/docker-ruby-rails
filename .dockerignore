@@ -1,0 +1,6 @@
+tmp/*
+log/*
+db/*.sqlite3
+.git
+docker-compose.yml
+Dockerfile
