@@ -5,8 +5,8 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER: DATABASE_USERNAME
-      - POSTGRES_PASSWORD: DATABASE_PASSWORD
+      POSTGRES_USER: DATABASE_USERNAME
+      POSTGRES_PASSWORD: DATABASE_PASSWORD
   web:
     image: juliolustosa/ruby-rails
     volumes:
