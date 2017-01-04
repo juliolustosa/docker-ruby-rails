@@ -19,7 +19,7 @@ gemfile() {
 # Bundle install
 copyLock() {
   touch $APP_GEMFILE_LOCK
-  bundle install --binstubs
+  bundle install
   mkdir -p /tmp
   cp $APP_GEMFILE $TMP_GEMFILE
 }
