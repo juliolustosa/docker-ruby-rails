@@ -8,6 +8,9 @@ RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 ENV APP_HOME /app
 RUN mkdir -p $APP_HOME
 
+# Install Gem mailcatcher for test e-mails
+RUN gem install mailcatcher
+
 # Set working directory, where the commands will be ran:
 WORKDIR $APP_HOME
 
