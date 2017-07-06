@@ -2,7 +2,7 @@
 
 # Docker base image for Ruby with Rbenv
 ```shell
-docker pull juliolustosa/ruby-rbenv
+docker pull juliolustosa/ruby-rails
 ```
 
 ### What's included?
