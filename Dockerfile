@@ -1,29 +1,37 @@
-# Base image:
-FROM ruby:2.3
+FROM juliolustosa/ruby-rbenv:latest
+MAINTAINER Julio Lustosa "contato@juliolustosa.com.br"
 
-# Install dependencies
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+# Set an environment variable
+ENV ENABLE_AUTO_GEMFILE true
+ENV ENABLE_AUTO_MIGRATE true
+ENV SSH_KNOW_HOSTS "github.com bitbucket.org"
+ENV SSH_PRIVATE_KEY ""
 
-# Set an environment variable where the Rails app is installed to inside of Docker image:
-ENV APP_HOME /app
-RUN mkdir -p $APP_HOME
+# Common environment variables for framework configuration
+ENV RACK_ENV production
+ENV RAILS_ENV production
+ENV APP_ENV production
+ENV RAILS_SERVE_STATIC_FILES true
+ENV RAILS_LOG_TO_STDOUT true
+ENV SECRET_KEY_BASE $(openssl rand -base64 32)
+ENV PORT 8080
 
-# Set working directory, where the commands will be ran:
-WORKDIR $APP_HOME
+USER root
 
-# Copy scripts
-COPY scripts/auto-bundle-install.lib /
-COPY scripts/auto-bundle-install.sh /
-COPY scripts/auto-schema.sh /
-COPY scripts/start-puma.sh /
-COPY scripts/init.sh /
+# Install ssh client
+RUN apt-get install openssh-client -y
 
-RUN chmod +x /auto-bundle-install.sh
-RUN chmod +x /auto-schema.sh
-RUN chmod +x /start-puma.sh
-RUN chmod +x /init.sh
+# Copy Scripts
+RUN mkdir -p /scripts
+COPY ./init-scripts /scripts
+RUN chown $USER:$USER /scripts
+RUN chmod +x /scripts/*.sh
 
-EXPOSE 3000
-EXPOSE 1025
+# Clear apt-get
+RUN apt-get -qq clean autoclean
 
-CMD ["/bin/bash", "/init.sh"]
+USER $USER
+
+EXPOSE $PORT
+
+CMD ["bash", "/scripts/init.sh"]
