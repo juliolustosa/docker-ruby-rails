@@ -1,6 +1,6 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=E3G6KRHXDUF98&lc=US&item_name=Help%20Developer%20Julio%20Lustosa&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
 
-# Docker base image for Ruby with Rbenv
+# Docker base image for Ruby on Rails with Rbenv
 ```shell
 docker pull juliolustosa/ruby-rails
 ```
